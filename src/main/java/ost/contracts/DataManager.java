@@ -9,7 +9,7 @@ import ost.model.Server;
 
 import java.util.Collection;
 
-public interface IDataManager {
+public interface DataManager {
     /**
      * add a segment to the local data and update the database
      *
@@ -61,30 +61,4 @@ public interface IDataManager {
     void delete(@NonNull Server server, String segment)
             throws SegmentDataException;
 
-
-    /**
-     * get all of the server of a given segment
-     * @param segment the segment needed
-     * @return collection of all the server that relate to the given segment
-     * @throws SegmentDataException is thrown when there is no corresponding segment in the data
-     */
-    Collection<Server> getServersBySegment(String segment)
-            throws SegmentDataException;
-
-    /**
-     * get the segment object corresponding to the given segment
-     * @param segment the segment needed
-     * @return the segment needed
-     * @throws SegmentDataException is thrown when there is no corresponding segment in the data
-     */
-    Segment getSegment(String segment)
-            throws SegmentDataException;
-
-    /**
-     * get the segments corresponding to the args
-     * @param segments the needed segments
-     * @return collection containing all of the needed segments
-     */
-    Collection<Segment> getSegments(String... segments)
-            throws SegmentDataException;
 }

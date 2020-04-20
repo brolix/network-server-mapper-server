@@ -1,6 +1,6 @@
 package ost.contracts;
 
-public interface IManager {
+public interface Manager {
     /**
      * function that initialize all relevant manager components
      */

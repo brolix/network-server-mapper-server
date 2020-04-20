@@ -9,7 +9,7 @@ import ost.model.Server;
 
 import java.util.Collection;
 
-public interface DataManager {
+public interface DataManager extends Manager{
     /**
      * add a segment to the local data and update the database
      *

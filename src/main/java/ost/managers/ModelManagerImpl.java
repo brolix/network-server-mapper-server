@@ -62,4 +62,9 @@ public class ModelManagerImpl implements ModelManager {
     public void delete(@NonNull Server server, String segment) throws SegmentDataException {
 
     }
+
+    @Override
+    public void init() {
+
+    }
 }

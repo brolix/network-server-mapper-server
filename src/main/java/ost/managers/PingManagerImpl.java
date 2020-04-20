@@ -59,6 +59,11 @@ public class PingManagerImpl implements PingManager {
 
     }
 
+    @Override
+    public void init() {
+
+    }
+
     private static class ScanTask extends TimerTask{
 
         @Override

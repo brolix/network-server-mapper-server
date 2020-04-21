@@ -1,6 +1,6 @@
-package ost.contracts;
+package ost.snm.contracts;
 
-import ost.model.wrappers.PingWrapper;
+import ost.snm.model.wrappers.PingWrapper;
 
 import java.util.Collection;
 

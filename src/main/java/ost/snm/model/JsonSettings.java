@@ -1,4 +1,4 @@
-package ost.model;
+package ost.snm.model;
 
 import java.util.Map;
 

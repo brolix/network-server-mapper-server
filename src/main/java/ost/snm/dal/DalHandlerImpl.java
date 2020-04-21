@@ -1,11 +1,10 @@
-package ost.dal;
+package ost.snm.dal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import ost.contracts.DalHandler;
-import ost.contracts.SegmentsDao;
-import ost.model.Segment;
+import ost.snm.contracts.DalHandler;
+import ost.snm.contracts.SegmentsDao;
+import ost.snm.model.Segment;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -21,18 +20,26 @@ public class DalHandlerImpl implements DalHandler {
     }
 
     @Override
-    public void createSegment(Collection<Segment> segments) {
+    public void createSegments(Collection<Segment> segments) {
+        dao.saveAll(segments);
+    }
 
+    @Override
+    public Segment createSegment(Segment segment) {
+        Segment returnValue = dao.save(segment);
+
+        return returnValue;
     }
 
     @Override
     public Collection<Segment> getAllSegments() {
-        return null;
+        return dao.findAll();
     }
 
     @Override
     public Optional<Segment> findSegmentByAddr(String subnetAddress) {
-        return Optional.empty();
+        Optional<Segment> returnValue = dao.findSegmentBySubnetAddr(subnetAddress);
+        return returnValue;
     }
 
     @Override
@@ -42,6 +49,10 @@ public class DalHandlerImpl implements DalHandler {
 
     @Override
     public void deleteSegment(Segment segment) {
+    }
 
+    @Override
+    public void deleteAll() {
+        dao.deleteAll();
     }
 }

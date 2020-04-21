@@ -1,13 +1,11 @@
-package ost.contracts;
+package ost.snm.contracts;
 
 import lombok.NonNull;
-import ost.exceptions.NoSegmentFoundException;
-import ost.exceptions.NoServerFoundInSegmentException;
-import ost.exceptions.SegmentDataException;
-import ost.model.Segment;
-import ost.model.Server;
-
-import java.util.Collection;
+import ost.snm.exceptions.NoSegmentFoundException;
+import ost.snm.exceptions.NoServerFoundInSegmentException;
+import ost.snm.exceptions.SegmentDataException;
+import ost.snm.model.Segment;
+import ost.snm.model.Server;
 
 public interface DataManager extends Manager{
     /**

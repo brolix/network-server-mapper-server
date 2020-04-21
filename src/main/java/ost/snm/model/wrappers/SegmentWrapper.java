@@ -1,6 +1,6 @@
-package ost.model.wrappers;
+package ost.snm.model.wrappers;
 
-import ost.model.Segment;
+import ost.snm.model.Segment;
 
 public class SegmentWrapper extends PingWrapper{
     private Segment segment;

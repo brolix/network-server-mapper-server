@@ -1,6 +1,6 @@
-package ost.model.wrappers;
+package ost.snm.model.wrappers;
 
-import ost.model.Server;
+import ost.snm.model.Server;
 
 public class ServerWrapper extends PingWrapper{
     private Server server;

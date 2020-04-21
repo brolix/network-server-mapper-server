@@ -1,4 +1,4 @@
-package ost.exceptions;
+package ost.snm.exceptions;
 
 public class NoServerFoundInSegmentException extends SegmentDataException {
     public NoServerFoundInSegmentException() {

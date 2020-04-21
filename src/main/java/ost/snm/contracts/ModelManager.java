@@ -1,8 +1,8 @@
-package ost.contracts;
+package ost.snm.contracts;
 
-import ost.exceptions.SegmentDataException;
-import ost.model.Segment;
-import ost.model.Server;
+import ost.snm.exceptions.SegmentDataException;
+import ost.snm.model.Segment;
+import ost.snm.model.Server;
 
 import java.util.Collection;
 

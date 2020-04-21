@@ -1,12 +1,12 @@
-package ost.managers;
+package ost.snm.managers;
 
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
-import ost.contracts.PingManager;
-import ost.exceptions.SegmentDataException;
-import ost.model.Segment;
-import ost.model.Server;
-import ost.model.wrappers.PingWrapper;
+import ost.snm.contracts.PingManager;
+import ost.snm.exceptions.SegmentDataException;
+import ost.snm.model.Segment;
+import ost.snm.model.Server;
+import ost.snm.model.wrappers.PingWrapper;
 
 import java.util.Collection;
 import java.util.Timer;

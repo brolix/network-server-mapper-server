@@ -1,14 +1,14 @@
-package ost.managers;
+package ost.snm.managers;
 
 import javafx.collections.ObservableMap;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
-import ost.contracts.ModelManager;
-import ost.dal.DalHandlerImpl;
-import ost.exceptions.SegmentDataException;
-import ost.model.JsonSettings;
-import ost.model.Segment;
-import ost.model.Server;
+import ost.snm.contracts.ModelManager;
+import ost.snm.dal.DalHandlerImpl;
+import ost.snm.exceptions.SegmentDataException;
+import ost.snm.model.JsonSettings;
+import ost.snm.model.Segment;
+import ost.snm.model.Server;
 
 import java.util.Collection;
 

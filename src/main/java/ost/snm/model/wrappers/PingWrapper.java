@@ -1,4 +1,4 @@
-package ost.model.wrappers;
+package ost.snm.model.wrappers;
 
 import lombok.Getter;
 

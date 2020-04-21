@@ -1,4 +1,4 @@
-package ost.exceptions;
+package ost.snm.exceptions;
 
 public class SegmentDataException extends RuntimeException{
     public SegmentDataException() {

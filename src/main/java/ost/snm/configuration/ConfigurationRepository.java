@@ -1,4 +1,4 @@
-package ost.configuration;
+package ost.snm.configuration;
 
 import org.springframework.stereotype.Component;
 

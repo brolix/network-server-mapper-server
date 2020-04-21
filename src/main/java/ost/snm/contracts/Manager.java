@@ -1,4 +1,4 @@
-package ost.contracts;
+package ost.snm.contracts;
 
 public interface Manager {
     /**

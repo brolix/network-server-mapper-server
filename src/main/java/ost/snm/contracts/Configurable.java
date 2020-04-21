@@ -1,6 +1,6 @@
-package ost.contracts;
+package ost.snm.contracts;
 
-import ost.model.JsonSettings;
+import ost.snm.model.JsonSettings;
 
 public interface Configurable {
     /**

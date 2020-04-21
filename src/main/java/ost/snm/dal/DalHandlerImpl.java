@@ -26,9 +26,7 @@ public class DalHandlerImpl implements DalHandler {
 
     @Override
     public Segment createSegment(Segment segment) {
-        Segment returnValue = dao.save(segment);
-
-        return returnValue;
+        return dao.save(segment);
     }
 
     @Override
@@ -38,17 +36,17 @@ public class DalHandlerImpl implements DalHandler {
 
     @Override
     public Optional<Segment> findSegmentByAddr(String subnetAddress) {
-        Optional<Segment> returnValue = dao.findSegmentBySubnetAddr(subnetAddress);
-        return returnValue;
+        return dao.findSegmentBySubnetAddr(subnetAddress);
     }
 
     @Override
     public void updateSegment(Segment newSegment, String oldSegment) {
-
+        dao.save(newSegment);
     }
 
     @Override
     public void deleteSegment(Segment segment) {
+        dao.delete(segment);
     }
 
     @Override

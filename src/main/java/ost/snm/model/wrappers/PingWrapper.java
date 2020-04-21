@@ -3,15 +3,17 @@ package ost.snm.model.wrappers;
 import lombok.Getter;
 
 public abstract class PingWrapper implements Runnable {
-    private String hash;
-
     @Getter
     private long timestamp;
 
+    public PingWrapper() {
+        this.timestamp = System.currentTimeMillis();
+    }
+
     public abstract void generateJson(String path);
+    public abstract String getHash();
 
     @Override
     public void run() {
-
     }
 }

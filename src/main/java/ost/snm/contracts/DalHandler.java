@@ -46,7 +46,7 @@ public interface DalHandler {
     void deleteSegment(Segment segment);
 
     /**
-     * clears all records from the database</br>
+     * clears all records from the database<br/>
      * <b style="font-size:15px">Use with caution!!</b>
      */
     void deleteAll();

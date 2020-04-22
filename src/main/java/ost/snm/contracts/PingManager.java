@@ -6,8 +6,17 @@ import java.util.Collection;
 
 public interface PingManager extends DataManager{
     /**
-     * get a collection of in progress segments and servers
-     * @return collection of ping wrappers
+     * Add a listener to observable object.
      */
-    Collection<PingWrapper> getInProgressObjects();
+    void initListener();
+
+    /**
+     * A listener for removing object from an observable.
+     */
+    void listenerOnRemove(PingWrapper pingWrapper);
+
+    /**
+     * A listener for adding object into observable.
+     */
+    void listenerOnAdd(PingWrapper pingWrapper);
 }

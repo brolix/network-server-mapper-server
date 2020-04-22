@@ -25,11 +25,16 @@ public class SynchronizedPingObjects implements Synchronize<PingWrapper> {
         availablePingObjects.put(object.getHash(), object);
     }
 
-    @Synchronized
+
     @Override
     public void removeObject(PingWrapper object) {
         availablePingObjects.remove(object.getHash());
         inProcessPingObject.remove(object.getHash());
+    }
+
+    @Override
+    public boolean contains(PingWrapper object) {
+        return availablePingObjects.containsKey(object.getHash()) || inProcessPingObject.containsKey(object.getHash());
     }
 
     @Synchronized

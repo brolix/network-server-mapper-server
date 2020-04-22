@@ -1,9 +1,12 @@
 package ost.snm.managers;
 
+import javafx.collections.MapChangeListener;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators;
 import org.springframework.stereotype.Component;
 import ost.snm.configuration.ConfigurationRepository;
+import ost.snm.contracts.ModelManager;
 import ost.snm.contracts.PingManager;
 import ost.snm.exceptions.SegmentDataException;
 import ost.snm.model.Segment;
@@ -13,27 +16,23 @@ import ost.snm.model.wrappers.SegmentWrapper;
 import ost.snm.model.wrappers.ServerWrapper;
 import ost.snm.model.wrappers.SynchronizedPingObjects;
 
-import java.util.Collection;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.*;
 
 @Component
 public class PingManagerImpl implements PingManager {
     final private ConfigurationRepository configurationRepository;
-    private SynchronizedPingObjects synchronizedPingObjects ;
+    final private ModelManager modelManager;
+    private SynchronizedPingObjects synchronizedPingObjects;
     private ExecutorService pingExec;
     private Timer scanTimer;
     private ScanTask scanTask;
 
     @Autowired
-    public PingManagerImpl(ConfigurationRepository configurationRepository) {
+    public PingManagerImpl(ConfigurationRepository configurationRepository, ModelManagerImpl modelManager) {
         this.configurationRepository = configurationRepository;
-    }
+        this.modelManager = modelManager;
 
-    @Override
-    public Collection<PingWrapper> getInProgressObjects() {
-        return null;
     }
 
     @Override
@@ -74,6 +73,42 @@ public class PingManagerImpl implements PingManager {
         this.scanTask = new ScanTask(synchronizedPingObjects, pingExec);
         this.scanTimer = new Timer("scannerTimer");
         this.scanTimer.scheduleAtFixedRate(this.scanTask, 0, this.configurationRepository.getPingDelay());
+        initListener();
+    }
+
+    //TODO - Split listener to several functions & make it work ;)
+    @Override
+    public void initListener() {
+        modelManager.addListener((MapChangeListener<String, Segment>) map -> {
+            if (map.wasAdded()) {
+                Segment segment = map.getValueAdded();
+                SegmentWrapper segmentWrapper = new SegmentWrapper(segment);
+                List<ServerWrapper> serverWrapperList = new ArrayList<>();
+                segment.getServers().forEach((server ->
+                        serverWrapperList.add(new ServerWrapper(server, segment.getSubnetAddr()))));
+
+                if (!map.wasRemoved()) {
+                    synchronizedPingObjects.addObject(segmentWrapper);
+                    serverWrapperList.forEach((server ->
+                            synchronizedPingObjects.addObject(server)));
+                } else {
+                    this.synchronizedPingObjects.removeObject(segmentWrapper);
+                    serverWrapperList.forEach(server -> synchronizedPingObjects.removeObject(server));
+                }
+            } else {
+
+            }
+        });
+    }
+
+    @Override
+    public void listenerOnRemove(PingWrapper pingWrapper) {
+
+    }
+
+    @Override
+    public void listenerOnAdd(PingWrapper pingWrapper) {
+
     }
 
     private static class ScanTask extends TimerTask {
@@ -91,16 +126,16 @@ public class PingManagerImpl implements PingManager {
             return pingWrapper.getTimestamp() <= System.currentTimeMillis();
         }
 
-        public void handlePing(String hash , PingWrapper wrapper) {
-            synchronizedPingObjects.markInProcess(hash , wrapper);
+        public void handlePing(String hash, PingWrapper wrapper) {
+            synchronizedPingObjects.markInProcess(hash, wrapper);
             executor.execute(wrapper);
         }
 
         @Override
         public void run() {
             synchronizedPingObjects.getAvailablePingSnapshot().forEach((entry) -> {
-                if(isPingAllowed(entry.getValue()))
-                    handlePing(entry.getKey(),entry.getValue());
+                if (isPingAllowed(entry.getValue()))
+                    handlePing(entry.getKey(), entry.getValue());
             });
         }
     }

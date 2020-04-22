@@ -247,4 +247,17 @@ public class DalHandlerTests {
         );
     }
 
+    @Test
+    public void testTryToAddDuplicateSegmentWithTheSameSubnetAddressAndFail() {
+        //Given a database with single segment
+        Segment segment = new Segment("192.168.1", "Test", null, null);
+        Segment expectedSegment = dalHandler.createSegment(segment);
+
+        //When we try to add a duplicate subnetAddress
+        Segment failedSegment = new Segment("192.168.1", "Test", null, null);
+
+        //Then we get a duplicate key exception
+        assertThatThrownBy(()->dalHandler.createSegment(failedSegment));
+    }
+
 }

@@ -2,6 +2,7 @@ package ost.snm.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ost.snm.contracts.Configurable;
 import ost.snm.contracts.Hashable;
@@ -16,6 +17,7 @@ public class Segment implements Configurable, Hashable {
     @Id
     private String id;
 
+    @Indexed(unique=true)
     private String subnetAddr;
     private String desc;
     private List<Server> servers;

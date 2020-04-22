@@ -7,7 +7,7 @@ import ost.snm.exceptions.SegmentDataException;
 import ost.snm.model.Segment;
 import ost.snm.model.Server;
 
-public interface DataManager extends Manager{
+public interface DataManager extends Manager {
     /**
      * add a segment to the local data and update the database
      *
@@ -20,7 +20,7 @@ public interface DataManager extends Manager{
      *
      * @param server  the server to add
      * @param segment the key of a segment
-     * @throws NoSegmentFoundException is thrown when there is no corresponding segment in the data
+     * @throws NoSegmentFoundException         is thrown when there is no corresponding segment in the data
      * @throws NoServerFoundInSegmentException is thrown when there is no corresponding server in the given segment
      */
     void add(@NonNull Server server, String segment)

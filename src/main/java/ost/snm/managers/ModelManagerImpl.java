@@ -2,6 +2,7 @@ package ost.snm.managers;
 
 import javafx.collections.ObservableMap;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ost.snm.contracts.ModelManager;
 import ost.snm.dal.DalHandlerImpl;
@@ -16,7 +17,12 @@ import java.util.Collection;
 public class ModelManagerImpl implements ModelManager {
     private ObservableMap<String,Segment> segments;
     private JsonSettings globalSettings;
-    private DalHandlerImpl dbHandler;
+    private final DalHandlerImpl dbHandler;
+
+    @Autowired
+    public ModelManagerImpl(DalHandlerImpl dbHandler) {
+        this.dbHandler = dbHandler;
+    }
 
     @Override
     public Collection<Server> getServersBySegment(String segment) throws SegmentDataException {

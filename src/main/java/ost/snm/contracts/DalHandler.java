@@ -35,9 +35,8 @@ public interface DalHandler {
     /**
      * updates a segment object and replace it with a new one
      * @param newSegment the new segment object to be updated
-     * @param oldSegment the segment old subnet in case the subnet was the change
      */
-    void updateSegment(Segment newSegment,String oldSegment);
+    void updateSegment(Segment newSegment);
 
     /**
      * deletes the given segment from the database
@@ -46,7 +45,7 @@ public interface DalHandler {
     void deleteSegment(Segment segment);
 
     /**
-     * clears all records from the database</br>
+     * clears all records from the database<br/>
      * <b style="font-size:15px">Use with caution!!</b>
      */
     void deleteAll();

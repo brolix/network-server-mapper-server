@@ -1,10 +1,8 @@
 package ost.snm.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ost.snm.contracts.Configurable;
 import ost.snm.contracts.Hashable;
@@ -12,13 +10,14 @@ import ost.snm.contracts.Hashable;
 import java.util.List;
 
 @Document("Segments")
-@Getter
+@Data
 @NoArgsConstructor
 public class Segment implements Configurable, Hashable {
 
     @Id
-    public String id;
+    private String id;
 
+    @Indexed(unique=true)
     private String subnetAddr;
     private String desc;
     private List<Server> servers;

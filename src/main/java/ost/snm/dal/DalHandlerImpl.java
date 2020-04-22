@@ -40,7 +40,7 @@ public class DalHandlerImpl implements DalHandler {
     }
 
     @Override
-    public void updateSegment(Segment newSegment, String oldSegment) {
+    public void updateSegment(Segment newSegment) {
         dao.save(newSegment);
     }
 

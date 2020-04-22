@@ -10,6 +10,7 @@ import ost.snm.model.Segment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -178,14 +179,72 @@ public class DalHandlerTests {
     }
 
     @Test
-    public void testTryToDeleteNullSegmentObjectAndFail(){
+    public void testTryToDeleteNullSegmentObjectAndFail() {
         //Given a database with single segment
         Segment segment = new Segment("192.168.1", "Test", null, null);
         Segment expectedSegment = dalHandler.createSegment(segment);
 
         //When we try to delete null object
         //Then an Exception is thrown
-        assertThatThrownBy(()->dalHandler.deleteSegment(null));
+        assertThatThrownBy(() -> dalHandler.deleteSegment(null));
+    }
+
+    @Test
+    public void testTryToFindSegmentWithAddressWhenExists() {
+        //Given a database with 100 segments
+        List<Segment> segments = IntStream.range(1, 101)
+                .mapToObj(i -> new Segment("192.168." + i, "Test" + i, null, null))
+                .collect(Collectors.toList());
+        dalHandler.createSegments(segments);
+
+        //When we request segment with subnet address of 192.168.8
+        Optional<Segment> result = dalHandler.findSegmentByAddr("192.168.8");
+
+        //Then we get the segment object with that subnet
+        assertThat(result)
+                .isNotEmpty()
+                .get()
+                .extracting("subnetAddr")
+                .isEqualTo("192.168.8");
+    }
+
+    @Test
+    public void testTryToFindSegmentWithAddressWhenNotExists() {
+        //Given a database with 100 segments
+        List<Segment> segments = IntStream.range(1, 101)
+                .mapToObj(i -> new Segment("192.168." + i, "Test" + i, null, null))
+                .collect(Collectors.toList());
+        dalHandler.createSegments(segments);
+
+        //When we request segment with subnet address of 192.168.8
+        Optional<Segment> result = dalHandler.findSegmentByAddr("192.168.254");
+
+        //Then we get an empty optional
+        assertThat(result)
+                .isEmpty();
+    }
+
+    @Test
+    public void testUpdateASegmentExistingOnTheDatabaseWhenWeChangeDescription() {
+        //Given a database with single segment
+        Segment segment = new Segment("192.168.1", "Test", null, null);
+        Segment expectedSegment = dalHandler.createSegment(segment);
+
+        //When we try to update the segment's description
+        expectedSegment.setDesc("Blaaaa");
+        dalHandler.updateSegment(expectedSegment);
+
+        //Then the database is updated with the new description
+        //and the segment was not added as a duplicate
+        assertAll(
+                () -> assertThat(dalHandler.findSegmentByAddr("192.168.1"))
+                        .isNotEmpty()
+                        .get()
+                        .extracting("desc")
+                        .isEqualTo(expectedSegment.getDesc()),
+                () -> assertThat(dalHandler.getAllSegments().size())
+                        .isEqualTo(1)
+        );
     }
 
 }

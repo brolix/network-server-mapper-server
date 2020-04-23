@@ -19,19 +19,19 @@ public class SynchronizedPingObjects implements Synchronize<PingWrapper> {
         this.availablePingObjects = new ConcurrentHashMap<>();
         this.inProcessPingObject = new ConcurrentHashMap<>();
     }
-
+    @Synchronized
     @Override
     public void addObject(PingWrapper object) {
         availablePingObjects.put(object.getHash(), object);
     }
 
-
+    @Synchronized
     @Override
     public void removeObject(PingWrapper object) {
         availablePingObjects.remove(object.getHash());
         inProcessPingObject.remove(object.getHash());
     }
-
+    @Synchronized
     @Override
     public boolean contains(PingWrapper object) {
         return availablePingObjects.containsKey(object.getHash()) || inProcessPingObject.containsKey(object.getHash());

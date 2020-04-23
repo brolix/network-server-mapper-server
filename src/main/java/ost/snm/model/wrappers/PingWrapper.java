@@ -15,5 +15,6 @@ public abstract class PingWrapper implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("IM RUNNING ON PING!"+getHash());
     }
 }

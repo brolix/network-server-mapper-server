@@ -133,6 +133,7 @@ public class PingManagerImpl implements PingManager {
 
         @Override
         public void run() {
+            System.out.println("running ping cycle..");
             synchronizedPingObjects.getAvailablePingSnapshot().forEach((entry) -> {
                 if (isPingAllowed(entry.getValue()))
                     handlePing(entry.getKey(), entry.getValue());

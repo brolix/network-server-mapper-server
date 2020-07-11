@@ -12,8 +12,8 @@ public class ServerWrapper extends PingWrapper {
     }
 
     @Override
-    public void generateJson(String path) {
-
+    public void generateJson() {
+        System.out.println("Creating server ping request on: "+segmentSubnet+String.valueOf(server.getIp()));
     }
 
     @Override

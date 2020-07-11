@@ -82,6 +82,6 @@ public class ModelManagerImpl implements ModelManager {
 
     @Override
     public void init() {
-        dbHandler.getAllSegments().forEach(segment -> this.segments.put(segment.getHash(),segment));
+        dbHandler.getAllSegments().forEach(segment -> this.segments.put(segment.getSubnetAddr(),segment));
     }
 }

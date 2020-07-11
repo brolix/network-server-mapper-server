@@ -10,11 +10,11 @@ public abstract class PingWrapper implements Runnable {
         this.timestamp = System.currentTimeMillis();
     }
 
-    public abstract void generateJson(String path);
+    public abstract void generateJson();
     public abstract String getHash();
 
     @Override
     public void run() {
-        System.out.println("IM RUNNING ON PING!"+getHash());
+        generateJson();
     }
 }

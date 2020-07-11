@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * This class is responsible for syncing
+ * This class is responsible for syncing ping object's status
  */
 public class SynchronizedPingObjects implements Synchronize<PingWrapper> {
     private ConcurrentMap<String, PingWrapper> availablePingObjects;

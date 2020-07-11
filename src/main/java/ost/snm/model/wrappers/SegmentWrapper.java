@@ -10,8 +10,8 @@ public class SegmentWrapper extends PingWrapper {
     }
 
     @Override
-    public void generateJson(String path) {
-
+    public void generateJson() {
+        System.out.println("Running on segment: "+segment.getSubnetAddr()+ " With hash: "+segment.getId());
     }
 
     @Override
